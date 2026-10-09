@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Courier_Prime, JetBrains_Mono, Press_Start_2P } from "next/font/google";
+import { Suspense } from "react";
+import { Footer } from "@/components/footer";
+import { Nav } from "@/components/nav";
 import { SessionProvider } from "@/components/session-provider";
 import "./globals.css";
 
@@ -36,7 +39,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <div className="av-bg" />
         <div className="av-noise" />
         <SessionProvider>
-          <div id="root">{children}</div>
+          <div id="root">
+            <Suspense fallback={<nav className="av-nav" />}>
+              <Nav />
+            </Suspense>
+            <main className="av-main">{children}</main>
+            <Footer />
+          </div>
         </SessionProvider>
       </body>
     </html>
