@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "@/components/session-provider";
 
 export function Nav() {
@@ -10,10 +10,21 @@ export function Nav() {
   const { user, logout } = useSession();
   const [open, setOpen] = useState(false);
 
+  // Biblioteca queda activa también en Detalle y Reproductor (/juegos/...).
   const isLibrary = pathname === "/" || pathname.startsWith("/juegos");
   const isHall = pathname.startsWith("/salon");
   const isAuth = pathname.startsWith("/acceso");
+
   const close = () => setOpen(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
 
   return (
     <>
@@ -38,7 +49,7 @@ export function Nav() {
           <span>CRÉDITOS · 03</span>
         </div>
         {user ? (
-          <button className="btn ghost auth-btn" onClick={logout}>
+          <button type="button" className="btn ghost auth-btn" onClick={logout}>
             {user.name} ▾
           </button>
         ) : (
@@ -46,13 +57,25 @@ export function Nav() {
             Iniciar Sesión
           </Link>
         )}
-        <button className="btn ghost hamburger" onClick={() => setOpen(true)} aria-label="Menú">
+        <button
+          type="button"
+          className="btn ghost hamburger"
+          onClick={() => setOpen(true)}
+          aria-label="Menú"
+          aria-expanded={open}
+          aria-controls="av-mobile-panel"
+        >
           ≡
         </button>
       </nav>
 
       <div className={"av-mobile-backdrop" + (open ? " open" : "")} onClick={close}></div>
-      <aside className={"av-mobile-panel" + (open ? " open" : "")}>
+      <aside
+        id="av-mobile-panel"
+        className={"av-mobile-panel" + (open ? " open" : "")}
+        aria-hidden={!open}
+        inert={!open}
+      >
         <div className="pixel neon-cyan" style={{ fontSize: 11, marginBottom: 16 }}>
           MENÚ
         </div>
