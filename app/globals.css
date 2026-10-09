@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* La plantilla original se apoya en los valores por defecto del navegador que el
+   preflight de Tailwind elimina: títulos en negrita (sintética con Press Start 2P)
+   y el relleno e interletrado propios de los input. Se restauran para igualarla. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+  input { padding: 1px 2px; letter-spacing: normal; }
+}
+
 /* ===== ARCADE VAULT — theme ===== */
 :root {
   --bg: #0a0a0f;

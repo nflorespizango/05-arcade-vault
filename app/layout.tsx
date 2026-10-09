@@ -6,22 +6,27 @@ import { Nav } from "@/components/nav";
 import { SessionProvider } from "@/components/session-provider";
 import "./globals.css";
 
+// adjustFontFallback: false evita las fuentes de respaldo ajustadas de next/font,
+// que cambian el ancho de glifos como ▲ y ♥ respecto a la plantilla.
 const pressStart = Press_Start_2P({
   variable: "--font-press-start",
   weight: "400",
   subsets: ["latin"],
+  adjustFontFallback: false,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   weight: ["400", "500", "700"],
   subsets: ["latin"],
+  adjustFontFallback: false,
 });
 
 const courierPrime = Courier_Prime({
   variable: "--font-courier-prime",
   weight: ["400", "700"],
   subsets: ["latin"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
