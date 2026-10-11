@@ -1,6 +1,6 @@
 # SPEC 01 — MVP visual: pantallas de Arcade Vault
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** Ninguna
 > **Date:** 2026-10-09
 > **Objective:** Implementar en Next.js (App Router) las cinco pantallas de `references/templates/` (Biblioteca, Detalle, Reproductor, Acceso y Salón de la Fama) con datos mock y sin ningún juego real.
@@ -109,26 +109,26 @@ Cada paso deja la app ejecutable con `npm run dev`.
 
 ## Criterios de aceptación
 
-- [ ] `npm run lint` y `npm run build` terminan sin errores.
-- [ ] La consola del navegador no muestra errores ni warnings de hidratación en ninguna de las 5 rutas.
-- [ ] `/` muestra las 8 tarjetas de juego.
-- [ ] Elegir el chip "PUZZLE" deja solo la tarjeta CAÍDA.
-- [ ] Buscar "zzz" muestra "NO HAY RESULTADOS".
-- [ ] Hacer clic en una tarjeta o en JUGAR navega a `/juegos/[id]`.
-- [ ] `/juegos/no-existe` muestra la página 404.
-- [ ] El Detalle muestra 10 filas en "MEJORES PUNTUACIONES" y el botón "JUGAR AHORA" lleva a `/juegos/[id]/jugar`.
-- [ ] El Reproductor suma puntaje mientras no está en pausa y lo detiene al pulsar PAUSA.
-- [ ] Pulsar FIN abre el modal con la puntuación final; "GUARDAR PUNTUACIÓN" añade una entrada a `localStorage["av_scores"]` y muestra "PUNTUACIÓN GUARDADA\_".
-- [ ] "JUGAR DE NUEVO" reinicia puntaje, vidas y nivel; "VOLVER AL VAULT" navega a `/`.
-- [ ] En `/acceso`, enviar el formulario con usuario "kai" guarda `av_user = {"name":"KAI"}` y redirige a `/`.
-- [ ] "JUGAR COMO INVITADO" redirige a `/` sin guardar `av_user`.
-- [ ] La pestaña "CREAR CUENTA" muestra el campo de correo; "INICIAR SESIÓN" lo oculta.
-- [ ] Con sesión, el nav muestra el nombre del usuario; al pulsarlo se cierra la sesión y vuelve a "Iniciar Sesión".
-- [ ] La sesión se conserva tras recargar la página.
-- [ ] `/salon` muestra podio con 3 posiciones y tabla con 12 filas; cambiar de juego cambia los datos.
-- [ ] En `/salon` la fila "TU MEJOR MARCA" aparece solo con sesión iniciada.
-- [ ] A 375 px de ancho no hay scroll horizontal y el botón hamburguesa abre el panel móvil.
-- [ ] Ningún archivo del proyecto contiene lógica de un juego real.
+- [x] `npm run lint` y `npm run build` terminan sin errores.
+- [x] La consola del navegador no muestra errores ni warnings de hidratación en ninguna de las 5 rutas.
+- [x] `/` muestra las 8 tarjetas de juego.
+- [x] Elegir el chip "PUZZLE" deja solo la tarjeta CAÍDA.
+- [x] Buscar "zzz" muestra "NO HAY RESULTADOS".
+- [x] Hacer clic en una tarjeta o en JUGAR navega a `/juegos/[id]`.
+- [x] `/juegos/no-existe` muestra la página 404.
+- [x] El Detalle muestra 10 filas en "MEJORES PUNTUACIONES" y el botón "JUGAR AHORA" lleva a `/juegos/[id]/jugar`.
+- [x] El Reproductor suma puntaje mientras no está en pausa y lo detiene al pulsar PAUSA.
+- [x] Pulsar FIN abre el modal con la puntuación final; "GUARDAR PUNTUACIÓN" añade una entrada a `localStorage["av_scores"]` y muestra "PUNTUACIÓN GUARDADA\_".
+- [x] "JUGAR DE NUEVO" reinicia puntaje, vidas y nivel; "VOLVER AL VAULT" navega a `/`.
+- [x] En `/acceso`, enviar el formulario con usuario "kai" guarda `av_user = {"name":"KAI"}` y redirige a `/`.
+- [x] "JUGAR COMO INVITADO" redirige a `/` sin guardar `av_user`.
+- [x] La pestaña "CREAR CUENTA" muestra el campo de correo; "INICIAR SESIÓN" lo oculta.
+- [x] Con sesión, el nav muestra el nombre del usuario; al pulsarlo se cierra la sesión y vuelve a "Iniciar Sesión".
+- [x] La sesión se conserva tras recargar la página.
+- [x] `/salon` muestra podio con 3 posiciones y tabla con 12 filas; cambiar de juego cambia los datos.
+- [x] En `/salon` la fila "TU MEJOR MARCA" aparece solo con sesión iniciada.
+- [x] A 375 px de ancho no hay scroll horizontal y el botón hamburguesa abre el panel móvil.
+- [x] Ningún archivo del proyecto contiene lógica de un juego real.
 
 ## Decisiones
 
@@ -152,6 +152,11 @@ Cada paso deja la app ejecutable con `npm run dev`.
 | `localStorage` deshabilitado o con datos corruptos                       | Todo acceso va en `try/catch`; si falla, se opera como invitado.                                           |
 | `params` es asíncrono en esta versión de Next.js                         | Tipar con los helpers globales (`PageProps<"/juegos/[id]">`) y hacer `await params`.                       |
 | Clases CSS de la plantilla ausentes en `globals.css`                     | El paso 1 las lista y el paso 10 verifica visualmente cada pantalla.                                       |
+
+## Observaciones pendientes
+
+- **`/juegos/[id]` y `/juegos/[id]/jugar` responden HTTP 200 con un `id` inexistente.** Con `/juegos/no-existe` se muestra la interfaz 404 (con `<meta name="robots" content="noindex">`), pero el código HTTP es 200. Pasaba igual antes de envolver `params` en `<Suspense>`. Con Cache Components `dynamicParams` no está disponible, y un 404 real exige comprobar el `id` antes de que empiece el streaming (por ejemplo en un `proxy`). Queda sin modificar y se trata en un spec futuro.
+- **Home vs. plantilla:** coincide al píxel en posiciones y medidas (0,277 % de píxeles distintos, por animaciones y antialiasing de la fuente pixel). Dos ajustes opcionales sin aplicar: cargar Press Start 2P como en la plantilla y cambiar `title` a "Arcade Vault · Portal Retro". La captura de referencia es `screenshot-home.png`, en la raíz.
 
 ## Lo que **no** entra en este spec
 
