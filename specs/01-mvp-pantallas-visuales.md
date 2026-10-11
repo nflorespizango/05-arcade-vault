@@ -156,7 +156,7 @@ Cada paso deja la app ejecutable con `npm run dev`.
 ## Observaciones pendientes
 
 - **`/juegos/[id]` y `/juegos/[id]/jugar` responden HTTP 200 con un `id` inexistente.** Con `/juegos/no-existe` se muestra la interfaz 404 (con `<meta name="robots" content="noindex">`), pero el código HTTP es 200. Pasaba igual antes de envolver `params` en `<Suspense>`. Con Cache Components `dynamicParams` no está disponible, y un 404 real exige comprobar el `id` antes de que empiece el streaming (por ejemplo en un `proxy`). Queda sin modificar y se trata en un spec futuro.
-- **Home vs. plantilla:** coincide al píxel en posiciones y medidas (0,277 % de píxeles distintos, por animaciones y antialiasing de la fuente pixel). Dos ajustes opcionales sin aplicar: cargar Press Start 2P como en la plantilla y cambiar `title` a "Arcade Vault · Portal Retro". La captura de referencia es `screenshot-home.png`, en la raíz.
+- **Home vs. plantilla:** coincide al píxel en posiciones y medidas (0,277 % de píxeles distintos, por animaciones y antialiasing de la fuente pixel). Dos ajustes opcionales sin aplicar: cargar Press Start 2P como en la plantilla y cambiar `title` a "Arcade Vault · Portal Retro". La captura de referencia es `.playwright-screenshots/screenshot-home.png`.
 
 ## Lo que **no** entra en este spec
 

@@ -22,7 +22,9 @@ Shared pieces: `components/nav.tsx` (responsive menu, hamburger toggles; also cl
 
 Mock persistence lives only in the browser's `localStorage`: `av_user` (`{ name }`, absent = guest) and `av_scores` (saved scores).
 
-`screenshot-home.png` (repo root) is the reference capture of the Home at 1440 × 900, compared against `references/templates/`.
+`.playwright-screenshots/screenshot-home.png` is the reference capture of the Home at 1440 × 900, compared against `references/templates/`.
+
+All Playwright MCP screenshots must be saved inside `.playwright-screenshots/`, named `screenshot-[screen-name].png` (e.g. `screenshot-home.png`).
 
 ### Known pending items
 
