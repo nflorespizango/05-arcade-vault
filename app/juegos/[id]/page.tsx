@@ -1,13 +1,28 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { GAMES, seededScores } from "@/lib/games";
 
 export function generateStaticParams() {
   return GAMES.map((g) => ({ id: g.id }));
 }
 
-export default async function GameDetailPage(props: PageProps<"/juegos/[id]">) {
-  const { id } = await props.params;
+export default function GameDetailPage(props: PageProps<"/juegos/[id]">) {
+  return (
+    <Suspense
+      fallback={
+        <div className="av-detail">
+          <div className="detail-cover"></div>
+        </div>
+      }
+    >
+      <GameDetail params={props.params} />
+    </Suspense>
+  );
+}
+
+async function GameDetail({ params }: { params: PageProps<"/juegos/[id]">["params"] }) {
+  const { id } = await params;
   const game = GAMES.find((g) => g.id === id);
   if (!game) notFound();
 

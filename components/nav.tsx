@@ -60,7 +60,7 @@ export function Nav() {
         <button
           type="button"
           className="btn ghost hamburger"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpen((v) => !v)}
           aria-label="Menú"
           aria-expanded={open}
           aria-controls="av-mobile-panel"
