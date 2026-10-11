@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* La plantilla original se apoya en los valores por defecto del navegador que el
+   preflight de Tailwind elimina: títulos en negrita (sintética con Press Start 2P)
+   y el relleno e interletrado propios de los input. Se restauran para igualarla. */
+@layer base {
+  h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+  input { padding: 1px 2px; letter-spacing: normal; }
+}
+
 /* ===== ARCADE VAULT — theme ===== */
 :root {
   --bg: #0a0a0f;
@@ -195,6 +203,16 @@ a { color: inherit; text-decoration: none; }
   .av-nav .links { display: none; }
   .av-nav .coin-counter { display: none; }
   .av-nav .hamburger { display: inline-flex; }
+  /* El nav queda por encima del panel y del fondo para que la hamburguesa lo cierre. */
+  .av-nav { z-index: 70; }
+}
+
+@media (max-width: 480px) {
+  .av-nav { gap: 10px; }
+  .av-nav .logo { gap: 8px; min-width: 0; }
+  .av-nav .logo-text { font-size: 11px; letter-spacing: 0.08em; }
+  .av-nav .auth-btn { margin-left: 0; padding: 10px 12px; letter-spacing: 0.1em; white-space: nowrap; }
+  .av-nav .hamburger { padding: 10px 14px; }
 }
 
 .av-mobile-panel {
@@ -210,6 +228,7 @@ a { color: inherit; text-decoration: none; }
   display: flex; flex-direction: column; gap: 8px;
 }
 .av-mobile-panel.open { transform: translateX(0); }
+@media (max-width: 840px) { .av-mobile-panel { padding-top: 84px; } }
 .av-mobile-panel a {
   padding: 14px 12px;
   font-family: var(--pixel);
@@ -537,7 +556,8 @@ a { color: inherit; text-decoration: none; }
   margin: 48px auto;
   padding: 0 32px;
 }
-@media (max-width: 900px) { .av-detail { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .av-detail { grid-template-columns: minmax(0, 1fr); } }
+.av-detail > * { min-width: 0; }
 .detail-cover {
   aspect-ratio: 16 / 10;
   position: relative;
@@ -945,6 +965,16 @@ a { color: inherit; text-decoration: none; }
   .av-hall { padding: 0 16px; }
   .av-detail { padding: 0 16px; margin: 24px auto; }
   .av-player { padding: 0 16px 32px; }
+}
+
+@media (max-width: 480px) {
+  .player-hud, .hud-actions { flex-wrap: wrap; }
+  .stat-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat-strip > div:last-child { grid-column: 1 / -1; }
+  .hall-table .th, .hall-table .tr { grid-template-columns: 38px minmax(0, 1fr) 88px 76px; gap: 6px; padding: 10px; }
+  .hall-table .th { font-size: 8px; letter-spacing: 0.06em; }
+  .hall-table .tr .sc { font-size: 11px; }
+  .hall-table .tr .pl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 }
 
 /* misc */

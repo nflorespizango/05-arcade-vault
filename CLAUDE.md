@@ -4,7 +4,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Arcade Vault: an online platform to play games and compete for the highest score. The project follows a spec-driven workflow (`/spec` and `/spec-impl`) using the skills from `Klerith/fernando-skills` (installed with `npx skills@latest add Klerith/fernando-skills`). The README is in Spanish. The codebase is currently the unmodified Create Next App scaffold (a single `app/page.tsx` and `app/layout.tsx`).
+Arcade Vault: an online platform to play games and compete for the highest score. The project follows a spec-driven workflow (`/spec` and `/spec-impl`) using the skills from `Klerith/fernando-skills` (installed with `npx skills@latest add Klerith/fernando-skills`). The README is in Spanish.
+
+## Status
+
+SPEC 01 (`specs/01-mvp-pantallas-visuales.md`) is **Implementado**: the five screens from `references/templates/` are built as real App Router routes with mock data. Only the visual layer exists; there is no real game, backend, database or real authentication.
+
+| Route | Screen | Main files |
+| --- | --- | --- |
+| `/` | Biblioteca (hero, search, category chips, game grid) | `app/page.tsx`, `components/library-client.tsx`, `components/game-card.tsx` |
+| `/juegos/[id]` | Detalle del juego (stats, top 10) | `app/juegos/[id]/page.tsx` |
+| `/juegos/[id]/jugar` | Reproductor (HUD, pause, FIN, game-over modal; decorative arena) | `app/juegos/[id]/jugar/page.tsx`, `components/game-player.tsx` |
+| `/acceso` | Iniciar sesión / Crear cuenta / invitado | `app/acceso/page.tsx`, `components/auth-form.tsx` |
+| `/salon` | Salón de la Fama (tabs per game, podium, 12-row table) | `app/salon/page.tsx`, `components/hall-of-fame-client.tsx` |
+
+Shared pieces: `components/nav.tsx` (responsive menu, hamburger toggles; also closes with Escape, backdrop click and link click), `components/footer.tsx`, `components/session-provider.tsx` (mock session), `lib/games.ts` (typed mock data, deterministic `seededScores`).
+
+Mock persistence lives only in the browser's `localStorage`: `av_user` (`{ name }`, absent = guest) and `av_scores` (saved scores).
+
+`.playwright-screenshots/screenshot-home.png` is the reference capture of the Home at 1440 × 900, compared against `references/templates/`.
+
+All Playwright MCP screenshots must be saved inside `.playwright-screenshots/`, named `screenshot-[screen-name].png` (e.g. `screenshot-home.png`).
+
+### Known pending items
+
+- `/juegos/no-existe` (and `/juegos/no-existe/jugar`) render the 404 UI but respond with HTTP 200. It behaved the same before wrapping `params` in `<Suspense>`. `dynamicParams` is not available with Cache Components, so a real 404 needs a check before streaming (e.g. a `proxy`). Deliberately left as is; see "Observaciones pendientes" in the spec.
+- Optional Home tweaks not applied: load Press Start 2P like the template and change `<title>` to "Arcade Vault · Portal Retro".
 
 
 There is no test runner configured.
@@ -21,4 +46,6 @@ Usa siempre /frontend-design para diseñar la interfaz de usuario.
 - App Router only (`app/`). Path alias `@/*` maps to the repo root.
 - `next.config.ts` enables `cacheComponents` and `partialPrefetching`, plus `experimental.agentFeedback`. `cacheComponents` changes caching and dynamic-rendering semantics, so check the docs before using data fetching or request APIs.
 - Tailwind is wired through Turbopack: `turbopack.rules` in `next.config.ts` runs `@tailwindcss/turbopack` on `*.css`. Styles are in `app/globals.css` (`@import "tailwindcss"`).
-- `app/layout.tsx` types its props with the globally generated `LayoutProps<"/">` helper (no import needed). Fonts are Geist and Geist Mono, loaded via `next/font/google` as CSS variables.
+- `app/layout.tsx` types its props with the globally generated `LayoutProps<"/">` helper (no import needed). Fonts are Press Start 2P, JetBrains Mono and Courier Prime, loaded via `next/font/google` as CSS variables (`adjustFontFallback: false`). It mounts `SessionProvider`, `Nav` (inside `<Suspense>`) and `Footer`.
+- Styles are the template's `av-*` classes ported into `app/globals.css`, plus a few Tailwind preflight fixes and responsive rules (≤ 900 / 840 / 720 / 480 px). Do not rewrite them as Tailwind utilities.
+- With `cacheComponents`, pages that read `params` must pass the `params` promise to an async child wrapped in `<Suspense>` (see `app/juegos/[id]/page.tsx`); awaiting it at the top level raises an instant-navigation validation error in `next dev`.
