@@ -73,7 +73,6 @@ export function Nav() {
       <aside
         id="av-mobile-panel"
         className={"av-mobile-panel" + (open ? " open" : "")}
-        aria-hidden={!open}
         inert={!open}
       >
         <div className="pixel neon-cyan" style={{ fontSize: 11, marginBottom: 16 }}>
