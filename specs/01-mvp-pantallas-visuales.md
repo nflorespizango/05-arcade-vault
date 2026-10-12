@@ -109,26 +109,26 @@ Cada paso deja la app ejecutable con `npm run dev`.
 
 ## Criterios de aceptación
 
-- [x] `npm run lint` y `npm run build` terminan sin errores.
-- [x] La consola del navegador no muestra errores ni warnings de hidratación en ninguna de las 5 rutas.
-- [x] `/` muestra las 8 tarjetas de juego.
-- [x] Elegir el chip "PUZZLE" deja solo la tarjeta CAÍDA.
-- [x] Buscar "zzz" muestra "NO HAY RESULTADOS".
-- [x] Hacer clic en una tarjeta o en JUGAR navega a `/juegos/[id]`.
-- [x] `/juegos/no-existe` muestra la página 404.
-- [x] El Detalle muestra 10 filas en "MEJORES PUNTUACIONES" y el botón "JUGAR AHORA" lleva a `/juegos/[id]/jugar`.
-- [x] El Reproductor suma puntaje mientras no está en pausa y lo detiene al pulsar PAUSA.
-- [x] Pulsar FIN abre el modal con la puntuación final; "GUARDAR PUNTUACIÓN" añade una entrada a `localStorage["av_scores"]` y muestra "PUNTUACIÓN GUARDADA\_".
-- [x] "JUGAR DE NUEVO" reinicia puntaje, vidas y nivel; "VOLVER AL VAULT" navega a `/`.
-- [x] En `/acceso`, enviar el formulario con usuario "kai" guarda `av_user = {"name":"KAI"}` y redirige a `/`.
-- [x] "JUGAR COMO INVITADO" redirige a `/` sin guardar `av_user`.
-- [x] La pestaña "CREAR CUENTA" muestra el campo de correo; "INICIAR SESIÓN" lo oculta.
-- [x] Con sesión, el nav muestra el nombre del usuario; al pulsarlo se cierra la sesión y vuelve a "Iniciar Sesión".
-- [x] La sesión se conserva tras recargar la página.
-- [x] `/salon` muestra podio con 3 posiciones y tabla con 12 filas; cambiar de juego cambia los datos.
-- [x] En `/salon` la fila "TU MEJOR MARCA" aparece solo con sesión iniciada.
-- [x] A 375 px de ancho no hay scroll horizontal y el botón hamburguesa abre el panel móvil.
-- [x] Ningún archivo del proyecto contiene lógica de un juego real.
+- [ ] `npm run lint` y `npm run build` terminan sin errores.
+- [ ] La consola del navegador no muestra errores ni warnings de hidratación en ninguna de las 5 rutas.
+- [ ] `/` muestra las 8 tarjetas de juego.
+- [ ] Elegir el chip "PUZZLE" deja solo la tarjeta CAÍDA.
+- [ ] Buscar "zzz" muestra "NO HAY RESULTADOS".
+- [ ] Hacer clic en una tarjeta o en JUGAR navega a `/juegos/[id]`.
+- [ ] `/juegos/no-existe` muestra la página 404.
+- [ ] El Detalle muestra 10 filas en "MEJORES PUNTUACIONES" y el botón "JUGAR AHORA" lleva a `/juegos/[id]/jugar`.
+- [ ] El Reproductor suma puntaje mientras no está en pausa y lo detiene al pulsar PAUSA.
+- [ ] Pulsar FIN abre el modal con la puntuación final; "GUARDAR PUNTUACIÓN" añade una entrada a `localStorage["av_scores"]` y muestra "PUNTUACIÓN GUARDADA\_".
+- [ ] "JUGAR DE NUEVO" reinicia puntaje, vidas y nivel; "VOLVER AL VAULT" navega a `/`.
+- [ ] En `/acceso`, enviar el formulario con usuario "kai" guarda `av_user = {"name":"KAI"}` y redirige a `/`.
+- [ ] "JUGAR COMO INVITADO" redirige a `/` sin guardar `av_user`.
+- [ ] La pestaña "CREAR CUENTA" muestra el campo de correo; "INICIAR SESIÓN" lo oculta.
+- [ ] Con sesión, el nav muestra el nombre del usuario; al pulsarlo se cierra la sesión y vuelve a "Iniciar Sesión".
+- [ ] La sesión se conserva tras recargar la página.
+- [ ] `/salon` muestra podio con 3 posiciones y tabla con 12 filas; cambiar de juego cambia los datos.
+- [ ] En `/salon` la fila "TU MEJOR MARCA" aparece solo con sesión iniciada.
+- [ ] A 375 px de ancho no hay scroll horizontal y el botón hamburguesa abre el panel móvil.
+- [ ] Ningún archivo del proyecto contiene lógica de un juego real.
 
 ## Decisiones
 
