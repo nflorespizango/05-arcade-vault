@@ -4,14 +4,18 @@ import { useMemo, useState } from "react";
 import { GameCard } from "@/components/game-card";
 import { CATS, GAMES } from "@/lib/games";
 
+// Minúsculas y sin tildes, para que "caida" encuentre CAÍDA.
+const normalize = (s: string) =>
+  s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+
 export function LibraryClient() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<(typeof CATS)[number]>("TODOS");
 
   const filtered = useMemo(() => {
-    const needle = q.toLowerCase();
+    const needle = normalize(q.trim());
     return GAMES.filter(
-      (g) => (cat === "TODOS" || g.cat === cat) && g.title.toLowerCase().includes(needle),
+      (g) => (cat === "TODOS" || g.cat === cat) && normalize(g.title).includes(needle),
     );
   }, [q, cat]);
 
