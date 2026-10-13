@@ -93,27 +93,27 @@ Cada paso deja la app ejecutable con `npm run dev`.
 
 ## Criterios de aceptación
 
-- [ ] `npm run lint` y `npm run build` terminan sin errores.
-- [ ] La consola del navegador no muestra errores ni warnings de hidratación en `/`, `/biblioteca`, `/acerca`, `/juegos/[id]`, `/juegos/[id]/jugar`, `/acceso` y `/salon`.
-- [ ] `/` muestra el hero con el título "EL ARCADE CLÁSICO ESTÁ DE VUELTA" y los botones "EXPLORAR JUEGOS" y "CREAR CUENTA".
-- [ ] `/` muestra las secciones `// 01`, `// 02`, `// 03` y `// 04` más el bloque de estadísticas y el CTA final "¿LISTO PARA JUGAR?".
-- [ ] La sección `// 01` muestra 4 tarjetas y la `// 02` muestra 6 mini-cards.
-- [ ] Hacer clic en una mini-card navega a `/juegos/[id]` del juego correspondiente.
-- [ ] "EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS" e "INSERTAR MONEDA" navegan a `/biblioteca`.
-- [ ] "CREAR CUENTA" y "EMPEZAR GRATIS" navegan a `/acceso`; "VER SALÓN" navega a `/salon`.
-- [ ] "ÚLTIMAS PUNTUACIONES" muestra 7 filas y "TOP JUGADORES · HOY" muestra 5 filas, con números formateados en `es-ES`.
-- [ ] `/biblioteca` muestra las 8 tarjetas; el chip "PUZZLE" deja solo CAÍDA y buscar "zzz" muestra "NO HAY RESULTADOS".
-- [ ] "VOLVER AL VAULT" en el Reproductor y el botón de volver del Detalle llevan a `/biblioteca`.
-- [ ] Tras iniciar sesión como "kai" o pulsar "JUGAR COMO INVITADO", se redirige a `/biblioteca`.
-- [ ] El Nav muestra cuatro enlaces (Inicio, Biblioteca, Salón de la Fama, Acerca de) y solo uno está activo por ruta; en `/juegos/*` está activo "Biblioteca".
-- [ ] Las secciones con `.reveal` quedan visibles tras hacer scroll y también con `prefers-reduced-motion: reduce` activado.
-- [ ] Con JavaScript deshabilitado el contenido de `/` es visible (no queda oculto por `.reveal`).
-- [ ] En `/acerca`, enviar el formulario con algún campo vacío no muestra el estado de éxito y aplica la clase `shake` durante 400 ms.
-- [ ] En `/acerca`, enviar con nombre "kai" muestra "MENSAJE RECIBIDO" y "GRACIAS, KAI"; "ENVIAR OTRO MENSAJE" vuelve al formulario vacío.
-- [ ] El `<title>` de `/` es "Arcade Vault · Portal Retro" y `/biblioteca` y `/acerca` tienen títulos distintos entre sí.
-- [ ] A 375 px de ancho no hay scroll horizontal en `/` ni en `/acerca`, y el botón hamburguesa abre el panel móvil con los cuatro enlaces.
-- [ ] Ninguna petición de red sale del formulario de contacto al enviarlo.
-- [ ] Ningún archivo del proyecto contiene lógica de un juego real.
+- [x] `npm run lint` y `npm run build` terminan sin errores.
+- [x] La consola del navegador no muestra errores ni warnings de hidratación en `/`, `/biblioteca`, `/acerca`, `/juegos/[id]`, `/juegos/[id]/jugar`, `/acceso` y `/salon`.
+- [x] `/` muestra el hero con el título "EL ARCADE CLÁSICO ESTÁ DE VUELTA" y los botones "EXPLORAR JUEGOS" y "CREAR CUENTA".
+- [x] `/` muestra las secciones `// 01`, `// 02`, `// 03` y `// 04` más el bloque de estadísticas y el CTA final "¿LISTO PARA JUGAR?".
+- [x] La sección `// 01` muestra 4 tarjetas y la `// 02` muestra 6 mini-cards.
+- [x] Hacer clic en una mini-card navega a `/juegos/[id]` del juego correspondiente.
+- [x] "EXPLORAR JUEGOS", "VER TODOS LOS JUEGOS" e "INSERTAR MONEDA" navegan a `/biblioteca`.
+- [x] "CREAR CUENTA" y "EMPEZAR GRATIS" navegan a `/acceso`; "VER SALÓN" navega a `/salon`.
+- [x] "ÚLTIMAS PUNTUACIONES" muestra 7 filas y "TOP JUGADORES · HOY" muestra 5 filas, con números formateados en `es-ES`.
+- [x] `/biblioteca` muestra las 8 tarjetas; el chip "PUZZLE" deja solo CAÍDA y buscar "zzz" muestra "NO HAY RESULTADOS".
+- [x] "VOLVER AL VAULT" en el Reproductor y el botón de volver del Detalle llevan a `/biblioteca`.
+- [x] Tras iniciar sesión como "kai" o pulsar "JUGAR COMO INVITADO", se redirige a `/biblioteca`.
+- [x] El Nav muestra cuatro enlaces (Inicio, Biblioteca, Salón de la Fama, Acerca de) y solo uno está activo por ruta; en `/juegos/*` está activo "Biblioteca".
+- [x] Las secciones con `.reveal` quedan visibles tras hacer scroll y también con `prefers-reduced-motion: reduce` activado.
+- [x] Con JavaScript deshabilitado el contenido de `/` es visible (no queda oculto por `.reveal`).
+- [x] En `/acerca`, enviar el formulario con algún campo vacío no muestra el estado de éxito y aplica la clase `shake` durante 400 ms.
+- [x] En `/acerca`, enviar con nombre "kai" muestra "MENSAJE RECIBIDO" y "GRACIAS, KAI"; "ENVIAR OTRO MENSAJE" vuelve al formulario vacío.
+- [x] El `<title>` de `/` es "Arcade Vault · Portal Retro" y `/biblioteca` y `/acerca` tienen títulos distintos entre sí.
+- [x] A 375 px de ancho no hay scroll horizontal en `/` ni en `/acerca`, y el botón hamburguesa abre el panel móvil con los cuatro enlaces.
+- [x] Ninguna petición de red sale del formulario de contacto al enviarlo.
+- [x] Ningún archivo del proyecto contiene lógica de un juego real.
 
 ## Decisiones
 
@@ -145,6 +145,19 @@ Cada paso deja la app ejecutable con `npm run dev`.
 | Mover la Biblioteca rompe el caso `/juegos/[id]` activo en el Nav                            | El paso 9 mantiene "Biblioteca" activa para `/biblioteca` y `/juegos/*` y se comprueba a mano.                   |
 | Copy de la plantilla que promete funciones inexistentes (ranking global, sin anuncios, etc.) | Se documenta como copy provisional; se revisa en el spec que implemente esas funciones.                          |
 | Desbordamiento horizontal en móvil por siluetas flotantes absolutas                           | Contenedor del hero con `overflow: hidden` y revisión a 375 px en el paso 10.                                    |
+
+## Notas de implementación
+
+Desviaciones y hallazgos respecto al plan, verificados con Playwright sobre el build de producción (`next start`):
+
+- **Paso 2:** el CSS de Home y Acerca de ya estaba en `app/globals.css` (commit `d09bf38`); solo se fusionó la regla duplicada `.top-row`. Las ~119 reglas del widget "gamepad" de la plantilla (`.gp-*`, `.dp-*`, `.ab-*`, `.lg-*`, `.score-pop`, `.gp-themer`) no se portaron porque ninguna pantalla las usa.
+- **Nav (paso 9):** con cuatro enlaces la barra no cabe por debajo de ~965 px, así que el menú hamburguesa pasa de ≤ 840 px a ≤ 980 px, y entre 981 y 1280 px la barra se compacta (sin contador de créditos). Esto afecta a todas las pantallas.
+- **Responsive:** `.activity-grid` usa `minmax(0, 1fr)` a ≤ 900 px para evitar desbordamiento horizontal a 375 px.
+- **Formulario de contacto:** `<form noValidate>`, de modo que solo cuenta que ningún campo esté vacío (un correo mal formado no bloquea el envío con el aviso nativo del navegador).
+- **`Reveal`:** acepta además `aria-hidden` (para el divisor decorativo).
+- **Botón `JUGAR` de la tarjeta de la Biblioteca:** sigue yendo al Detalle (`/juegos/[id]`), como establece SPEC 01; solo `JUGAR AHORA` va a `/jugar`.
+- **`/games`:** no existe ni se creó ninguna redirección; la ruta oficial es `/biblioteca`.
+- **Pendiente sin causa determinada:** en `next dev` algunos clics (un CTA del Home, un login, una entrada como invitado) no navegaron dentro del tiempo de espera en ejecuciones largas de Playwright; no se reprodujo con el build de producción (24 de 24 secuencias de login e invitado correctas). Probablemente un clic antes de la hidratación.
 
 ## Lo que **no** entra en este spec
 
